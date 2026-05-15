@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&family=Cinzel:wght@400..900&display=swap');
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Cinzel", serif;
+  
+  --color-brand-orange: #FF5C00;
+  --color-brand-dark: #0A0A0A;
+  --color-brand-gold: #D4AF37;
+}
+
+@layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    background-color: var(--color-brand-dark);
+    color: #FFFFFF;
+    font-family: var(--font-sans);
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border: 2px solid var(--color-brand-dark);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-orange);
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #1a1a1a var(--color-brand-dark);
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #FF5C00, #FFAD60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Arched Borders */
+.arched-header {
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+.arched-card {
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+}
+
+.mustache-border {
+  border-bottom: 2px solid var(--color-brand-orange);
+  position: relative;
+}
+
+.mustache-border::after {
+  content: ' ';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M10,40 Q30,40 50,15 Q70,40 90,40 Q70,50 50,25 Q30,50 10,40' fill='%23FF5C00'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
