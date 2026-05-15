@@ -1,0 +1,11 @@
+services:
+  - type: static
+    name: restraunt-static
+    env: static
+    branch: main
+    buildCommand: "npm install && npm run build"
+    publishPath: "dist"
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: "/index.html"
