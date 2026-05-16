@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { CalendarDays, ConciergeBell } from 'lucide-react';
 import { DecorativeLine } from './Icons';
 import paneerHandi from '../assets/paneer-handi.png';
-import heroBg from '../assets/hero-bg.png';
+import heroBg from '../assets/hero-bg.jpg';
 import naanBasket from '../assets/naan-basket.png';
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {

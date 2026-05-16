@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import logo from '../assets/logo.png';
-import heroBg from '../assets/hero-bg.png';
+import heroBg from '../assets/hero-bg.jpg';
 import { DecorativeLine } from './Icons';
 
 export default function LoadingScreen() {
