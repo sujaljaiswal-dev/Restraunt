@@ -71,16 +71,16 @@ export default function LoadingScreen() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="flex items-center gap-3 text-brand-orange mb-6 sm:mb-8 -mt-10 sm:-mt-16"
+            className="flex items-center gap-1.5 sm:gap-3 text-brand-orange mb-6 sm:mb-8 -mt-10 sm:-mt-16 max-w-full px-2"
           >
-            <div className="flex items-center">
-              <div className="w-1.5 h-1.5 border border-brand-orange rotate-45 mr-1" />
-              <div className="w-10 sm:w-16 h-[1px] bg-brand-orange" />
+            <div className="flex items-center shrink-0">
+              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 border border-brand-orange rotate-45 mr-0.5 sm:mr-1" />
+              <div className="w-4 sm:w-16 h-[1px] bg-brand-orange" />
             </div>
-            <span className="text-xs sm:text-sm font-medium tracking-wide">The North Indian Food Corner</span>
-            <div className="flex items-center">
-              <div className="w-10 sm:w-16 h-[1px] bg-brand-orange" />
-              <div className="w-1.5 h-1.5 border border-brand-orange rotate-45 ml-1" />
+            <span className="text-[10px] sm:text-sm font-medium tracking-wide text-center truncate sm:whitespace-normal">The North Indian Food Corner</span>
+            <div className="flex items-center shrink-0">
+              <div className="w-4 sm:w-16 h-[1px] bg-brand-orange" />
+              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 border border-brand-orange rotate-45 ml-0.5 sm:ml-1" />
             </div>
           </motion.div>
 
