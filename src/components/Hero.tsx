@@ -6,7 +6,7 @@ import paneerHandi from '../assets/paneer-handi.png';
 import heroBg from '../assets/hero-bg.png';
 import naanBasket from '../assets/naan-basket.png';
 
-export default function Hero() {
+export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   return (
     <section className="relative min-h-screen flex items-center pt-24 md:pt-20 px-6 overflow-hidden bg-brand-dark">
       {/* Background Texture/Shine */}
@@ -21,7 +21,7 @@ export default function Hero() {
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto] gap-x-8 gap-y-4 lg:gap-y-8 items-center z-10 relative">
         <motion.div 
           initial="hidden"
-          animate="visible"
+          animate={isLoaded ? "visible" : "hidden"}
           variants={{
             hidden: { opacity: 0 },
             visible: {
@@ -69,29 +69,42 @@ export default function Hero() {
         </motion.div>
 
         <motion.div 
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 60,
-            damping: 15,
-            mass: 1.2,
-            delay: 0.5,
-            opacity: { duration: 0.3 }
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          variants={{
+            hidden: { x: 100, opacity: 0 },
+            visible: { 
+              x: 0, 
+              opacity: 1,
+              transition: { 
+                type: "spring",
+                stiffness: 60,
+                damping: 15,
+                mass: 1.2,
+                delay: 0.5,
+                opacity: { duration: 0.3 }
+              }
+            }
           }}
           className="col-start-1 row-start-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 relative flex justify-end lg:mr-[35%] py-4 sm:py-0 w-[110%] sm:w-full ml-[-5%] sm:ml-0 z-0"
         >
           {/* Naan Basket in Background */}
           <motion.div 
-            initial={{ opacity: 0, x: 100, y: -20, rotate: 15, scale: 0.8 }}
-            animate={{ opacity: 1, x: 40, y: -40, rotate: -5, scale: 1 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 50,
-              damping: 18,
-              mass: 1.5,
-              delay: 0.6,
-              opacity: { duration: 0.4 }
+            initial="hidden"
+            animate={isLoaded ? "visible" : "hidden"}
+            variants={{
+              hidden: { opacity: 0, x: 100, y: -20, rotate: 15, scale: 0.8 },
+              visible: { 
+                opacity: 1, x: 40, y: -40, rotate: -5, scale: 1,
+                transition: { 
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 18,
+                  mass: 1.5,
+                  delay: 0.6,
+                  opacity: { duration: 0.4 }
+                }
+              }
             }}
             className="absolute top-1/2 -translate-y-[65%] sm:-translate-y-1/2 -right-8 sm:-right-16 md:-right-32 lg:-right-48 w-[200px] sm:w-[220px] md:w-[320px] lg:w-[450px] xl:w-[580px] z-[0] pointer-events-none opacity-60 sm:opacity-40 lg:opacity-100"
           >
@@ -107,32 +120,49 @@ export default function Hero() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 bg-brand-orange/15 rounded-full blur-[60px] sm:blur-[100px] pointer-events-none" />
             
             <div className="relative cursor-pointer w-fit overflow-visible">
-              {/* Smoke Effect Overlay */}
-              <div className="absolute inset-0 z-20 pointer-events-none flex justify-center">
+              {/* Enhanced Smoke Effect Overlay */}
+              <div className="absolute inset-0 z-20 pointer-events-none flex justify-center opacity-75 mix-blend-screen transition-opacity duration-700">
+                {/* Fast, subtle steam particles for immediate heat */}
                 {[...Array(6)].map((_, i) => (
                   <motion.div
-                    key={i}
-                    initial={{ 
-                      opacity: 0, 
-                      scale: 0.5, 
-                      y: 20,
-                      x: (i - 2.5) * 30, // Spread smoke across the bowl
-                      filter: 'blur(8px)'
-                    }}
-                    animate={{ 
-                      opacity: [0, 0.4, 0], 
-                      scale: [1, 2, 2.5], 
-                      y: -150 - (i * 20),
-                      x: ((i - 2.5) * 30) + (Math.sin(i) * 40), // Slight horizontal drift
-                      filter: ['blur(8px)', 'blur(16px)', 'blur(24px)']
-                    }}
+                    key={`steam-${i}`}
+                    initial={{ opacity: 0, scale: 0.8, y: 10, x: (i - 2.5) * 25, filter: 'blur(4px)' }}
+                    animate={isLoaded ? { 
+                      opacity: [0, 0.4, 0.6, 0], 
+                      scale: [1, 1.2, 1.6], 
+                      y: [-20, -100 - (Math.random() * 40)],
+                      x: (i - 2.5) * 25 + (Math.random() * 20 - 10),
+                      filter: ['blur(4px)', 'blur(6px)', 'blur(10px)']
+                    } : {}}
                     transition={{
-                      duration: 4 + (i * 0.5),
+                      duration: 2.2 + (Math.random() * 1.2),
                       repeat: Infinity,
-                      delay: i * 0.8,
+                      delay: (isLoaded ? 0.2 : 0) + (Math.random() * 1.2),
+                      ease: "easeOut"
+                    }}
+                    className="absolute bottom-1/2 w-10 h-16 sm:w-14 sm:h-28 bg-gradient-to-t from-white/10 to-white/20 rounded-full"
+                  />
+                ))}
+                
+                {/* Billowing thick smoke for body */}
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={`smoke-${i}`}
+                    initial={{ opacity: 0, scale: 0.5, y: 0, x: (i - 2.5) * 35, filter: 'blur(10px)' }}
+                    animate={isLoaded ? { 
+                      opacity: [0, 0.3, 0], 
+                      scale: [1, 2.0, 2.8], 
+                      y: [-40, -180 - (i * 15)],
+                      x: ((i - 2.5) * 40) + (Math.sin(i * 1.5) * 40),
+                      filter: ['blur(10px)', 'blur(16px)', 'blur(24px)']
+                    } : {}}
+                    transition={{
+                      duration: 4.2 + (i * 0.6),
+                      repeat: Infinity,
+                      delay: (isLoaded ? 0.8 : 0) + (i * 0.5),
                       ease: "linear"
                     }}
-                    className="absolute bottom-1/2 w-16 h-16 sm:w-24 sm:h-24 bg-white/20 rounded-full"
+                    className="absolute bottom-[40%] w-24 h-24 sm:w-32 sm:h-32 bg-white/30 rounded-full"
                   />
                 ))}
               </div>
@@ -147,9 +177,16 @@ export default function Hero() {
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+          variants={{
+             hidden: { opacity: 0, x: -100 },
+             visible: { 
+               opacity: 1, 
+               x: 0,
+               transition: { duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.5 }
+             }
+          }}
           className="col-start-1 row-start-2 lg:col-start-1 lg:row-start-2 flex flex-col sm:flex-row lg:flex-col flex-wrap gap-3 sm:gap-4 lg:gap-6 pt-0 lg:pt-0 w-[150px] sm:w-full max-w-[150px] sm:max-w-none z-20 self-start lg:self-auto mt-2 sm:mt-0 lg:-mt-6"
         >
           <button className="bg-[#C15B26] text-white px-4 sm:px-8 py-3 sm:py-5 lg:py-6 rounded-[8px] sm:rounded-md lg:rounded-xl flex items-center justify-between sm:justify-center lg:justify-between gap-3 sm:gap-4 transition-transform hover:scale-105 active:scale-95 group shadow-lg shadow-brand-orange/20 w-full sm:w-auto lg:w-[350px] xl:w-[400px] relative overflow-hidden">
