@@ -61,7 +61,7 @@ export default function Footer() {
 
         <div className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[#E8DCC2]">
           <p className="text-[11px] uppercase tracking-[0.2em] opacity-60">
-            © 2026 Chadha's Restaurant. All rights reserved.
+            © 2026 Chadha's Restaurant. All rights reserved by Metal_Web.
           </p>
           <div className="flex gap-8">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map(link => (
