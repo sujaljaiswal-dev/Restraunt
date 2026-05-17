@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
 import { CalendarDays, ConciergeBell } from 'lucide-react';
 import { DecorativeLine } from './Icons';
-import paneerHandi from '../assets/paneer-handi.png';
+import paneerHandi from '../assets/paneer-handi-compressed.png';
 import heroBg from '../assets/hero-bg.jpg';
-import naanBasket from '../assets/naan-basket.png';
+import naanBasket from '../assets/naan-basket-compressed.png';
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
+  // Pre-calculate animation values for performance
+  const steamParticles = useMemo(() => {
+    return Array.from({ length: 6 }).map((_, i) => ({
+      yOff: Math.random() * 40,
+      xOff: Math.random() * 20 - 10,
+      duration: 2.2 + (Math.random() * 1.2),
+      delay: Math.random() * 1.2
+    }));
+  }, []);
+
+  const smokeParticles = useMemo(() => {
+    return Array.from({ length: 6 }).map((_, i) => ({
+      duration: 4.2 + (Math.random() * 0.6),
+      delay: Math.random() * 0.5
+    }));
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center pt-24 md:pt-20 px-6 overflow-hidden bg-brand-dark">
       {/* Background Texture/Shine */}
@@ -123,21 +140,21 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
               {/* Enhanced Smoke Effect Overlay */}
               <div className="absolute inset-0 z-20 pointer-events-none flex justify-center opacity-75 mix-blend-screen transition-opacity duration-700">
                 {/* Fast, subtle steam particles for immediate heat */}
-                {[...Array(6)].map((_, i) => (
+                {steamParticles.map((particle, i) => (
                   <motion.div
                     key={`steam-${i}`}
                     initial={{ opacity: 0, scale: 0.8, y: 10, x: (i - 2.5) * 25, filter: 'blur(4px)' }}
                     animate={isLoaded ? { 
                       opacity: [0, 0.4, 0.6, 0], 
                       scale: [1, 1.2, 1.6], 
-                      y: [-20, -100 - (Math.random() * 40)],
-                      x: (i - 2.5) * 25 + (Math.random() * 20 - 10),
+                      y: [-20, -100 - particle.yOff],
+                      x: (i - 2.5) * 25 + particle.xOff,
                       filter: ['blur(4px)', 'blur(6px)', 'blur(10px)']
                     } : {}}
                     transition={{
-                      duration: 2.2 + (Math.random() * 1.2),
+                      duration: particle.duration,
                       repeat: Infinity,
-                      delay: (isLoaded ? 0.2 : 0) + (Math.random() * 1.2),
+                      delay: (isLoaded ? 0.2 : 0) + particle.delay,
                       ease: "easeOut"
                     }}
                     className="absolute bottom-1/2 w-10 h-16 sm:w-14 sm:h-28 bg-gradient-to-t from-white/10 to-white/20 rounded-full"
@@ -145,7 +162,7 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                 ))}
                 
                 {/* Billowing thick smoke for body */}
-                {[...Array(6)].map((_, i) => (
+                {smokeParticles.map((particle, i) => (
                   <motion.div
                     key={`smoke-${i}`}
                     initial={{ opacity: 0, scale: 0.5, y: 0, x: (i - 2.5) * 35, filter: 'blur(10px)' }}
@@ -157,9 +174,9 @@ export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
                       filter: ['blur(10px)', 'blur(16px)', 'blur(24px)']
                     } : {}}
                     transition={{
-                      duration: 4.2 + (i * 0.6),
+                      duration: particle.duration,
                       repeat: Infinity,
-                      delay: (isLoaded ? 0.8 : 0) + (i * 0.5),
+                      delay: (isLoaded ? 0.8 : 0) + particle.delay,
                       ease: "linear"
                     }}
                     className="absolute bottom-[40%] w-24 h-24 sm:w-32 sm:h-32 bg-white/30 rounded-full"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Menu, X, Phone } from 'lucide-react';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-compressed.png';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

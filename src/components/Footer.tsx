@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-compressed.png';
 
 export default function Footer() {
   return (

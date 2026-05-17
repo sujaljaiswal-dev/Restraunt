@@ -4,9 +4,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DecorativeLine } from './Icons';
 import ArchCard from './ArchCard';
 import butterChickenImg from '../assets/images/regenerated_image_1778881140738.jpg';
-import dalMakhaniImg from '../assets/images/regenerated_image_1778881353579.png';
-import paneerTikkaImg from '../assets/images/regenerated_image_1778881460306.png';
-import kadhiBiryaniImg from '../assets/images/regenerated_image_1778881463861.png';
+import dalMakhaniImg from '../assets/images/dalMakhani-compressed.png';
+import paneerTikkaImg from '../assets/images/paneerTikka-compressed.png';
+import kadhiBiryaniImg from '../assets/images/kadhiBiryani-compressed.png';
 
 const RECOMMENDATIONS = [
   {
@@ -22,7 +22,10 @@ const RECOMMENDATIONS = [
   {
     name: "Paneer Tikka",
     desc: "Soft, smoky & full of authentic flavors.",
-    image: paneerTikkaImg
+    image: paneerTikkaImg,
+    flipHorizontal: true,
+    isRotated: true,
+    imagePosition: "center",
   },
   {
     name: "Kadhi Biryani",
@@ -64,6 +67,10 @@ export default function Recommendations() {
                   name={dish.name}
                   desc={dish.desc}
                   image={dish.image}
+                  flipHorizontal={dish.flipHorizontal}
+                  imagePosition={dish.imagePosition}
+                  imageClassName={dish.imageClassName}
+                  isRotated={dish.isRotated}
                 />
               </motion.div>
             ))}

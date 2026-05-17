@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-compressed.png';
 import heroBg from '../assets/hero-bg.jpg';
 import { DecorativeLine } from './Icons';
 

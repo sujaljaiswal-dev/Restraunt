@@ -4,9 +4,13 @@ interface ArchCardProps {
   image: string;
   name: string;
   desc: string;
+  flipHorizontal?: boolean;
+  imagePosition?: string;
+  imageClassName?: string;
+  isRotated?: boolean;
 }
 
-export default function ArchCard({ image, name, desc }: ArchCardProps) {
+export default function ArchCard({ image, name, desc, flipHorizontal, imagePosition, imageClassName, isRotated }: ArchCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const id = useId();
@@ -120,12 +124,35 @@ export default function ArchCard({ image, name, desc }: ArchCardProps) {
           className="absolute top-0 left-0 right-0 overflow-hidden" 
           style={{ height: '60%', clipPath: `url(#${imgClipId})` }}
         >
-          <img 
-            src={image} 
-            alt={name}
-            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0804] via-[#0F0804]/20 to-transparent opacity-90" />
+          <div className={`w-full h-full relative flex items-center justify-center ${flipHorizontal ? '-scale-x-100' : ''}`}>
+            {isRotated && w > 0 && h > 0 ? (
+              <div 
+                className="absolute flex items-center justify-center transform origin-center"
+                style={{ 
+                  width: h * 0.6, 
+                  height: w,
+                  transform: 'rotate(-90deg)'
+                }}
+              >
+                <img 
+                  src={image} 
+                  alt={name}
+                  className={`w-full h-full object-cover transition-transform duration-700 ${imageClassName || 'hover:scale-105'}`}
+                  style={{ objectPosition: imagePosition }}
+                  loading="lazy"
+                />
+              </div>
+            ) : (
+              <img 
+                src={image} 
+                alt={name}
+                className={`w-full h-full object-cover transition-transform duration-700 ${imageClassName || 'hover:scale-105'}`}
+                style={{ objectPosition: imagePosition }}
+                loading="lazy"
+              />
+            )}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0804] via-[#0F0804]/20 to-transparent opacity-90 pointer-events-none" />
         </div>
       )}
       

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
-import Recommendations from './components/Recommendations';
-import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+
+const Features = lazy(() => import('./components/Features'));
+const Recommendations = lazy(() => import('./components/Recommendations'));
+const Footer = lazy(() => import('./components/Footer'));
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,10 +29,14 @@ export default function App() {
       <Navbar />
       <main>
         <div id="home"><Hero isLoaded={!isLoading} /></div>
-        <div id="about-us"><Features /></div>
-        <div id="menu"><Recommendations /></div>
+        <Suspense fallback={null}>
+          <div id="about-us"><Features /></div>
+          <div id="menu"><Recommendations /></div>
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
