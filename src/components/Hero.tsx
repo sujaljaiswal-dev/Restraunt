@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
 import { CalendarDays, ConciergeBell } from 'lucide-react';
 import { DecorativeLine } from './Icons';
-import paneerHandi from '../assets/paneer-handi-compressed.png';
+import paneerHandi from '../assets/paneer-handi-compressed-v2.png';
 import heroBg from '../assets/hero-bg.jpg';
-import naanBasket from '../assets/naan-basket-compressed.png';
+import naanBasket from '../assets/naan-basket-compressed-v2.png';
 
 export default function Hero({ isLoaded = true }: { isLoaded?: boolean }) {
   // Pre-calculate animation values for performance
